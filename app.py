@@ -32,3 +32,19 @@ def run_code():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+fetch("/run", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "code=" + encodeURIComponent(code)
+})
+.then(response => response.json())
+.then(data => {
+    document.getElementById("consoleOutput").innerText = data.output;
+})
+.catch(err => {
+    document.getElementById("consoleOutput").innerText = "Erreur : " + err;
+});
